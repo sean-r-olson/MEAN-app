@@ -1,8 +1,6 @@
 mat-card {
-  width: 80%;
-  margin: auto;
+  margin-top: 1rem;
 }
-
 button {
   margin: auto;
 }
