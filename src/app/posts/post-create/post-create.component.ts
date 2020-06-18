@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 
 // @ symbol indicates "decorator" in typescript
 @Component({
@@ -7,10 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./post-create.component.css']
 })
 export class PostCreateComponent {
-  enteredValue = '';
-  newPost = '';
+  enteredTitle = '';
+  enteredContent = '';
+  postCreated = new EventEmitter();
 
   onAddPost(){
-    this.newPost = this.enteredValue;
+    const post = {
+      title: this.enteredTitle,
+      content: this.enteredContent
+    };
+    this.postCreated.emit(post);
   }
+
 }
