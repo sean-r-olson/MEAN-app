@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { Post } from '../post.model';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { PostsService } from '../post.service';
 
 // @ symbol indicates "decorator" in typescript
 @Component({
@@ -11,19 +11,14 @@ import { NgForm } from '@angular/forms';
 export class PostCreateComponent {
   enteredTitle = '';
   enteredContent = '';
-  @Output() postCreated = new EventEmitter<Post>();
-  post: Post;
+  constructor(public postsService: PostsService) {}
 
   onAddPost(form: NgForm){
     if (form.invalid) {
       return;
     }
-     this.post = {
-      title: form.value.title,
-      content: form.value.content
-    };
-    this.postCreated.emit(this.post);
-    console.log(this.post);
+
+    this.postsService.addPost(form.value.title, form.value.content);
   }
 
 }

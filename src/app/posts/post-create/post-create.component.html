@@ -4,21 +4,34 @@
   #postForm="ngForm">
     <mat-form-field>
       <input
+      matInput
       name="title"
-      matInput
       type="text"
+      placeholder="Name"
       ngModel
-      required>
+      required
+      #title="ngModel">
+      <!-- <mat-error *ngIf="title.invalid"> Please enter your name.</mat-error> -->
     </mat-form-field>
-    <mat-form-field>
-      <textarea
-      name="content"
+    <br/>
+     <mat-form-field class="contentContainer">
+      <!-- <p class="contentPrompt">I'm happiest when I'm</p> -->
+      <span matPrefix
+      style="text-decoration: none"
+      >I'm happiest when I'm... &nbsp;</span>
+      <mat-label><mat-icon>edit</mat-icon> <i> click to finish </i></mat-label>
+      <input
+      class="contentInput"
       matInput
-      rows="6"
+      matInput placeholder="ex. outdoors"
+      type="text"
+      name="content"
       ngModel
-      required>
-      </textarea>
+      required
+      #content="ngModel">
+      <!-- <mat-error *ngIf="content.invalid"> Please enter some content for your post.</mat-error> -->
     </mat-form-field>
+
     <br/>
     <button
     type="submit"
