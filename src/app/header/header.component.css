@@ -1,0 +1,48 @@
+ul {
+  list-style: none;
+  position: relative;
+  min-height: 100vh;
+}
+
+li {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translate(-50%,-50%);
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  background-color: black
+}
+
+.create {
+  font-size: 75%;
+  letter-spacing: 2px;
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translate(-50%,-50%);
+  padding: 0.5rem;
+
+}
+
+.create:hover {
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  background-color: rgb(46, 46, 46);
+  color: rgb(255, 193, 203);
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translate(-50%,-50%);
+}
