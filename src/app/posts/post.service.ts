@@ -37,6 +37,12 @@ export class PostsService {
     return this.postsUpdated.asObservable();
   }
 
+  getPost(id: string) {
+    // use spread operator to extract the properties of the original object, and make a new identical object
+    console.log(id);
+    return {...this.posts.find(p => p.id === id)};
+  }
+
   addPost(title: string, content: string) {
     const post: Post = {id: null, title: title, content: content};
     this.http.post<{message: string, postId: string}>('http://localhost:3000/api/posts', post)
@@ -46,6 +52,12 @@ export class PostsService {
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
       })
+  }
+
+  updatePost(id: string, title: string, content: string) {
+    const post: Post = { id: id, title: title, content: content };
+    this.http.put('http://localhost:3000/api/posts/' + id, post)
+      .subscribe(response => console.log(response))
   }
 
   deletePost(postId: string) {
