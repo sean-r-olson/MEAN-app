@@ -38,9 +38,9 @@ export class PostsService {
   }
 
   getPost(id: string) {
-    // use spread operator to extract the properties of the original object, and make a new identical object
-    console.log(id);
-    return {...this.posts.find(p => p.id === id)};
+    return this.http.get<{_id: string, title: string, content: string}>(
+      'http://localhost:3000/api/posts/' + id
+      );
   }
 
   addPost(title: string, content: string) {
@@ -57,7 +57,19 @@ export class PostsService {
   updatePost(id: string, title: string, content: string) {
     const post: Post = { id: id, title: title, content: content };
     this.http.put('http://localhost:3000/api/posts/' + id, post)
-      .subscribe(response => console.log(response))
+    // replace the old post with updated post, and update the posts array
+    .subscribe(response => {
+        // clone the posts array and store in a new constant
+        const updatedPosts = [...this.posts];
+        // check if the id of the old post is equal to the id of the post we're updating
+        const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id)
+        // update the old post object
+        updatedPosts[oldPostIndex] = post;
+        // update the posts array with updated post object
+        this.posts = updatedPosts;
+        // send a copy of the updated posts array to the updated posts subject
+        this.postsUpdated.next([...this.posts]);
+      });
   }
 
   deletePost(postId: string) {
