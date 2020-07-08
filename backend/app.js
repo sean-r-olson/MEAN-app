@@ -26,7 +26,9 @@ app.use((req, res, next) => {
   "GET, POST, PUT, PATCH, DELETE, OPTIONS"
   );
   next();
-})
+});
+
+
 
 app.use('/api/posts', postsRoutes);
 
