@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const app = express();
 const Post = require('./models/post');
@@ -8,6 +9,10 @@ const Post = require('./models/post');
 const postsRoutes = require('./routes/posts');
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// grant frontend access to images folder
+app.use('/images', express.static(path.join('backend/images')));
 
 // connect to mongodb database (node-angular)
 mongoose.connect('mongodb+srv://solson34:BRmJHjo5RhEn3xgw@cluster0-zq0ji.mongodb.net/node-angular?retryWrites=true&w=majority')

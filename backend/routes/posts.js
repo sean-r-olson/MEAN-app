@@ -9,14 +9,14 @@ const MIME_TYPE_MAP = {
   'image/jpg': 'jpg'
 }
 
-// use multer to extract incoming files
+// use multer to extract and encode incoming files
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const isValid = MIME_TYPE_MAP[file.mimetype];
     let error = new Error('Invalid file type');
     if (isValid) {
       error = null;
-    } 
+    }
     cb(error, 'backend/images');
   },
   filename: (req, file, cb) => {
@@ -27,9 +27,11 @@ const storage = multer.diskStorage({
 });
 
 router.post('', multer({storage: storage}).single('image'),(req, res, next) => {
+  const url = req.protocol + '://' + req.get('host');
   const post = new Post({
     title: req.body.title,
-    content: req.body.content
+    content: req.body.content,
+    imagePath: url + '/images/' + req.file.filename
   });
   console.log(post);
   // save new post into db using mongo save method
@@ -37,7 +39,12 @@ router.post('', multer({storage: storage}).single('image'),(req, res, next) => {
     console.log(createdPost);
     res.status(201).json({
     message: 'post added successfully',
-    postId: createdPost._id
+    post: {
+      id: createdPost._id,
+      title: createdPost.title,
+      content: createdPost.content,
+      imagePath: createdPost.imagePath
+    }
   });
   });
 });
