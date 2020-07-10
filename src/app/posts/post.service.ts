@@ -8,30 +8,36 @@ import { Router } from '@angular/router';
 @Injectable({ providedIn: 'root' })
 export class PostsService {
   private posts: Post[] = [];
-  private postsUpdated = new Subject<Post[]>();
+  private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getPosts(postsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
-    this.http.get<{message: string, posts: any}>('http://localhost:3000/api/posts' + queryParams)
-      .pipe(map((postData) => {
-        return postData.posts.map(post => {
+    this.http.get<{message: string, posts: any, maxPosts: number}>('http://localhost:3000/api/posts' + queryParams)
+      .pipe(map(postData => {
+          return {
+          posts: postData.posts.map(post => {
           return {
             title: post.title,
             content: post.content,
             id: post._id,
             imagePath: post.imagePath
           };
-        })
+        }),
+        maxPosts: postData.maxPosts
+      };
       }))
     // subscribe to listen for response from server
-      .subscribe((transformedPosts) => {
+      .subscribe((transformedPostsData) => {
         // add response data (object) to client side posts array
-        this.posts = transformedPosts;
+        this.posts = transformedPostsData.posts;
         // this.postsUpdated.next([...this.posts]);
         console.log(this.posts);
-        this.postsUpdated.next([...this.posts]);
+        this.postsUpdated.next({
+          posts: [...this.posts],
+          postCount: transformedPostsData.maxPosts
+        });
       });
   }
 
@@ -55,16 +61,6 @@ export class PostsService {
       ('http://localhost:3000/api/posts',
       postData)
       .subscribe((responseData) => {
-        const post: Post = {
-          id: responseData.post.id,
-          title: title,
-          content: content,
-          imagePath: responseData.post.imagePath
-        }
-        // const id = responseData.postId
-        // post.id = id;
-        this.posts.push(post);
-        this.postsUpdated.next([...this.posts]);
         this.router.navigate(['/']);
       })
   }
@@ -88,33 +84,11 @@ export class PostsService {
     this.http.put('http://localhost:3000/api/posts/' + id, postData)
     // replace the old post with updated post, and update the posts array
     .subscribe(response => {
-        // clone the posts array and store in a new constant
-        const updatedPosts = [...this.posts];
-        // check if the id of the old post is equal to the id of the post we're updating
-        const oldPostIndex = updatedPosts.findIndex(p => p.id === id)
-        // update the old post object
-        const post: Post = {
-          id: id,
-          title: title,
-          content: content,
-          imagePath: ''
-        };
-        updatedPosts[oldPostIndex] = post;
-        // update the posts array with updated post object
-        this.posts = updatedPosts;
-        // send a copy of the updated posts array to the updated posts subject
-        this.postsUpdated.next([...this.posts]);
         this.router.navigate(['/']);
       });
   }
 
   deletePost(postId: string) {
-    this.http.delete('http://localhost:3000/api/posts/' + postId)
-      .subscribe(() => {
-        console.log(postId, 'post deleted');
-        const updatedPosts = this.posts.filter(post => post.id !== postId);
-        this.posts = updatedPosts;
-        this.postsUpdated.next([...this.posts]);
-      })
+    return this.http.delete('http://localhost:3000/api/posts/' + postId)
   }
 }
