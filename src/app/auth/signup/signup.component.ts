@@ -3,14 +3,14 @@ import { NgForm } from '@angular/forms';
 
 // turn class into a component w/ component decorator
 @Component({
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
 
-export class LoginComponent {
+export class SignupComponent {
   isLoading = false;
 
-  onLogin(form: NgForm){
+  onSignup(form: NgForm){
     console.log(form.value);
   }
 }

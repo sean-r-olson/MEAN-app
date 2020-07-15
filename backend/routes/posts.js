@@ -1,6 +1,10 @@
 const express = require('express');
-const Post = require('../models/post');
 const router = express.Router();
+
+
+const Post = require('../models/post');
+
+// import multer for image upload feature
 const multer = require('multer');
 
 const MIME_TYPE_MAP = {
