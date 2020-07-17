@@ -5,22 +5,49 @@ ul {
   display: flex;
 }
 
-li {
+li a, li button{
   padding: 0px 10px;
   font-size: 1rem;
+  text-decoration: none;
+  color: white;
 }
 
-li:hover {
+li a:hover{
+  border: solid none;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: rgb(46, 46, 46);
+  color: rgb(255, 193, 203);
+}
+
+li button:hover {
   border: solid none;
   border-radius: 5px;
   background-color: rgb(46, 46, 46);
   color: rgb(255, 193, 203);
 }
 
-a {
+/* a {
   text-decoration: none;
   color: white;
+  padding: 0px 10px;
+  font-size: 1rem;
+} */
+/*
+.logout {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  padding: 0px 10px;
 }
+
+.logout:hover {
+  border: solid none;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: rgb(46, 46, 46);
+  color: rgb(255, 193, 203);
+} */
 
 .spacer {
   flex: 1 1 auto;
