@@ -15,7 +15,7 @@ import { AuthService } from '../auth/auth.service';
 export class PostListComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
   totalPosts = 0;
-  postsPerPage = 2;
+  postsPerPage = 10;
   pageSizeOptions = [1, 2, 5, 10];
   currentPage = 1;
   isLoading = false;
@@ -54,6 +54,8 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   onDelete(postId: string){
     this.isLoading = true;
+    this.currentPage = 1;
+    console.log(this.postsPerPage);
     this.postsService.deletePost(postId).subscribe(() => {
       this.postsService.getPosts(this.postsPerPage, this.currentPage);
     }, () => {
