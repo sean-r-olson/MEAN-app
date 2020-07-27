@@ -34,7 +34,7 @@ export class AuthService  {
     const authData: AuthData = { username: username, password: password }
     this.http.post('http://localhost:3000/api/user/signup', authData)
       .subscribe(() => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/about']);
       }, error => {
         console.log(error);
         this.authStatusListener.next(false);
