@@ -30,8 +30,8 @@ export class AuthService  {
     return this.authStatusListener.asObservable();
   }
 
-  createUser(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password }
+  createUser(username: string, password: string) {
+    const authData: AuthData = { username: username, password: password }
     this.http.post('http://localhost:3000/api/user/signup', authData)
       .subscribe(() => {
         this.router.navigate(['/']);
@@ -41,8 +41,8 @@ export class AuthService  {
       });
   }
 
-  loginUser(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password }
+  loginUser(username: string, password: string) {
+    const authData: AuthData = { username: username, password: password }
     // send post request to server
     // expect a response with token, expiresIn, and userId fields
     this.http.post<{token: string, expiresIn: number, userId: string}>('http://localhost:3000/api/user/login', authData)

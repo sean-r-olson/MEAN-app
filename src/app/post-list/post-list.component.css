@@ -1,10 +1,24 @@
-:host {
+/* :host {
   display: block;
   margin-top: 1rem;
+} */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
 }
 
 .mat-body-1 {
   text-align: center;
+}
+
+mat-expansion-panel {
+  transition: none !important;
+  box-shadow: none !important;
+}
+
+mat-card-subtitle {
+  color: black
 }
 
 mat-spinner {

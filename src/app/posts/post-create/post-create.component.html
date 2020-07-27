@@ -38,6 +38,15 @@
       >
       <mat-error *ngIf="form.get('content').invalid"> Please enter some content for your post.</mat-error>
     </mat-form-field>
+    <mat-form-field>
+        <input
+        class="contentInput2"
+        matInput
+        matInput placeholder="tell us more, if you'd like!"
+        type="text"
+        formControlName="content2"
+        name="content2">
+    </mat-form-field>
     <br/>
     <button
     type="submit"

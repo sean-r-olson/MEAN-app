@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 // Local File Imports
 import { AppComponent } from './app.component';
@@ -53,7 +54,8 @@ import { ErrorComponent } from './error/error.component';
     ReactiveFormsModule,
     MatPaginatorModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatGridListModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
