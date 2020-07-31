@@ -1,4 +1,8 @@
 main {
-  width: 80%;
-  margin: auto;
+  width: 100%;
+  background-color: #333333;
 }
+
+app-header{
+  background-color: #333333;
+ }

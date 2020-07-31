@@ -40,6 +40,9 @@ export class PostCreateComponent implements OnInit, OnDestroy{
       content: new FormControl(null, {
         validators: [Validators.required]
       }),
+      content2: new FormControl(null, {
+        validators: [Validators.required]
+      }),
       image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType]
@@ -55,12 +58,14 @@ export class PostCreateComponent implements OnInit, OnDestroy{
             id: postData._id,
             title: postData.title,
             content: postData.content,
+            content2: postData.content2,
             imagePath: postData.imagePath,
             creator: postData.creator
           };
           this.form.setValue({
             title: this.post.title,
             content: this.post.content,
+            content2: this.post.content2,
             image: this.post.imagePath
           })
           this.isLoading = false;
@@ -94,12 +99,14 @@ export class PostCreateComponent implements OnInit, OnDestroy{
       this.postsService.addPost(
         this.form.value.title,
         this.form.value.content,
+        this.form.value.content2,
         this.form.value.image);
     } else {
       this.postsService.updatePost(
         this.postId,
         this.form.value.title,
         this.form.value.content,
+        this.form.value.content2,
         this.form.value.image
     )};
     this.form.reset();

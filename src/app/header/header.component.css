@@ -9,21 +9,21 @@ li a, li button{
   padding: 0px 10px;
   font-size: 1rem;
   text-decoration: none;
-  color: white;
+  color: black;
 }
 
 li a:hover{
   border: solid none;
   border-radius: 5px;
   padding: 10px;
-  background-color: rgb(46, 46, 46);
+  background-color: #333333;
   color: rgb(255, 193, 203);
 }
 
 li button:hover {
   border: solid none;
   border-radius: 5px;
-  background-color: rgb(46, 46, 46);
+  background-color: #333333;
   color: rgb(255, 193, 203);
 }
 
@@ -54,7 +54,8 @@ li button:hover {
 }
 
 mat-toolbar {
-  background-color: black
+  background-color: white;
+  color: black;
 }
 
 img {

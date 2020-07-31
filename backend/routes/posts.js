@@ -35,6 +35,7 @@ router.post('', checkAuth, multer({storage: storage}).single('image'),(req, res,
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
+    content2: req.body.content2,
     imagePath: url + '/images/' + req.file.filename,
     creator: req.userData.userId
   });
@@ -46,6 +47,7 @@ router.post('', checkAuth, multer({storage: storage}).single('image'),(req, res,
       id: createdPost._id,
       title: createdPost.title,
       content: createdPost.content,
+      content2: createdPost.content2,
       imagePath: createdPost.imagePath,
     }
   });
@@ -66,6 +68,7 @@ router.put('/:id', checkAuth, multer({storage: storage}).single('image'), (req, 
     _id: req.body.id,
     title: req.body.title,
     content: req.body.content,
+    content2: req.body.content2,
     imagePath: imagePath,
     creator: req.userData.userId
   });
@@ -98,6 +101,7 @@ router.get('', (req, res, next) => {
   }
   postQuery.then(documents => {
     fetchedPosts = documents;
+      console.log(fetchedPosts);
       return Post.count();
     }).then(count => {
       res.status(200).json({
