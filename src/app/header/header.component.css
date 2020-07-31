@@ -5,27 +5,56 @@ ul {
   display: flex;
 }
 
-li a, li button{
+li a {
   padding: 0px 10px;
-  font-size: 1rem;
+  font-size: 1rem ;
   text-decoration: none;
-  color: black;
+  color: black ;
+  margin: auto 0.25rem;
 }
 
-li a:hover{
+li button {
+  padding: 0px 10px !important;
+  font-size: 1rem ;
+  text-decoration: none;
+  color: black ;
+  margin: auto 0.25rem;
+}
+
+li a:hover {
   border: solid none;
   border-radius: 5px;
   padding: 10px;
   background-color: #333333;
   color: rgb(255, 193, 203);
+  margin: 0.25rem;
 }
 
 li button:hover {
   border: solid none;
   border-radius: 5px;
+  padding: 10px;
   background-color: #333333;
   color: rgb(255, 193, 203);
+  margin: auto 0.25rem;
 }
+
+.router-link-active {
+  border: solid none !important;
+  border-radius: 5px !important;
+  padding: 10px !important;
+  background-color: #333333 !important;
+  color: rgb(255, 193, 203) !important;
+  margin: 0.25rem !important;
+}
+/* li button:hover {
+  border: solid none;
+  border-radius: 5px;
+  background-color: #333333;
+  color: rgb(255, 193, 203);
+} */
+
+
 
 /* a {
   text-decoration: none;

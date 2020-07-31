@@ -12,7 +12,7 @@ router.post('/signup', (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
       const user = new User({
-        username: req.body.username,
+        email: req.body.email,
         password: hash
       });
     user.save()
@@ -32,7 +32,7 @@ router.post('/signup', (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
   let fetchedUser;
-  User.findOne({ username: req.body.username })
+  User.findOne({ email: req.body.email })
   .then(user => {
     if (!user) {
       return res.status(401).json({
@@ -50,7 +50,7 @@ router.post('/login', (req, res, next) => {
     }
     // create JSON web token for user session if authentication succeeded
     const token = jwt.sign(
-      {username: fetchedUser.username, userId: fetchedUser._id},
+      {email: fetchedUser.email, userId: fetchedUser._id},
       'secret_this_should_be_longer',
       {expiresIn: '1h',
     });

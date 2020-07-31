@@ -1,5 +1,6 @@
 mat-card {
-  margin-top: 1rem;
+  width: 50%;
+  margin: 1rem auto;
 }
 
 button {
