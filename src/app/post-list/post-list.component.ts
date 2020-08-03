@@ -1,9 +1,12 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { Post } from '../posts/post.model';
 import { PostsService } from '../posts/post.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from '../auth/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { Router } from '@angular/router';
 
 
 @Component ({
@@ -12,20 +15,21 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./post-list.component.css']
 })
 
-export class PostListComponent implements OnInit, OnDestroy {
+export class PostListComponent implements OnInit, OnDestroy{
   posts: Post[] = [];
   totalPosts = 0;
-  postsPerPage = 10;
-  pageSizeOptions = [1, 2, 5, 10];
+  postsPerPage = 18;
+  pageSizeOptions = [6, 18, 54];
   currentPage = 1;
   isLoading = false;
   userIsAuthenticated = false;
   userId: string;
   panelOpenState = false;
+  @Input() confirm: boolean;
   private postsSub: Subscription;
   private authStatusSub: Subscription;
 
-  constructor(public postsService: PostsService, private authService: AuthService) {}
+  constructor(public postsService: PostsService, private authService: AuthService, private dialog: MatDialog, private router: Router) {}
 
   ngOnInit(){
     this.isLoading = true;
@@ -53,15 +57,25 @@ export class PostListComponent implements OnInit, OnDestroy {
     console.log('this is the page data:', pageData);
   }
 
+  openDeleteDialog(){
+    this.dialog.open(ConfirmationComponent);
+  }
+
   onDelete(postId: string){
     this.isLoading = true;
     this.currentPage = 1;
-    console.log(this.postsPerPage);
-    this.postsService.deletePost(postId).subscribe(() => {
-      this.postsService.getPosts(this.postsPerPage, this.currentPage);
+    if (confirm('are you sure?')){
+      console.log('user clicked ok');
+      this.postsService.deletePost(postId).subscribe(() => {
+        this.postsService.getPosts(this.postsPerPage, this.currentPage);
     }, () => {
       this.isLoading = false;
-    });
+    })
+  } else {
+      console.log('user clicked cancel');
+      this.isLoading = false
+      this.router.navigate(['/']);
+  }
   }
 
   ngOnDestroy() {
